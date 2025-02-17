@@ -20,7 +20,9 @@ function App() {
   useEffect(() => {
     const checkDbConnection = async () => {
       try {
-        const response = await fetch("https://sd-6ykp.onrender.com/api/health");
+        const response = await fetch(
+          "https://backend-cyan-iota-32.vercel.app//api/health"
+        );
         const data = await response.json();
         setDbStatus({
           connected: true,

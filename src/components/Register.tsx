@@ -14,7 +14,7 @@ function Register({ onRegister }: RegisterProps) {
     e.preventDefault();
     try {
       const response = await fetch(
-        "https://sd-6ykp.onrender.com/api/register",
+        "https://backend-cyan-iota-32.vercel.app//api/register",
         {
           method: "POST",
           headers: {

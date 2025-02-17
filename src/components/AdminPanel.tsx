@@ -31,13 +31,16 @@ function AdminPanel({ token }: AdminPanelProps) {
         formData.append("image", imageFile);
       }
 
-      const response = await fetch("https://sd-6ykp.onrender.com/api/songs", {
-        method: "POST",
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-        body: formData,
-      });
+      const response = await fetch(
+        "https://backend-cyan-iota-32.vercel.app//api/songs",
+        {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+          body: formData,
+        }
+      );
 
       if (!response.ok) {
         const errorData = await response.json();

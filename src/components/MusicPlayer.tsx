@@ -46,10 +46,10 @@ function MusicPlayer({ token }: MusicPlayerProps) {
     try {
       setIsSearching(true);
       const url = searchQuery
-        ? `https://sd-6ykp.onrender.com/api/songs?search=${encodeURIComponent(
+        ? `https://backend-cyan-iota-32.vercel.app//api/songs?search=${encodeURIComponent(
             searchQuery
           )}`
-        : "https://sd-6ykp.onrender.com/api/songs";
+        : "https://backend-cyan-iota-32.vercel.app//api/songs";
 
       const response = await fetch(url, {
         headers: {
@@ -108,7 +108,7 @@ function MusicPlayer({ token }: MusicPlayerProps) {
   const handleLike = async (songId: string) => {
     try {
       const response = await fetch(
-        `https://sd-6ykp.onrender.com/api/songs/${songId}/like`,
+        `https://backend-cyan-iota-32.vercel.app//api/songs/${songId}/like`,
         {
           method: "POST",
           headers: {
