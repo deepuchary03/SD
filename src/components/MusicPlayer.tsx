@@ -1,5 +1,14 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { Play, Pause, SkipBack, SkipForward, Volume2, Heart, Search, X } from 'lucide-react';
+import React, { useState, useEffect, useRef } from "react";
+import {
+  Play,
+  Pause,
+  SkipBack,
+  SkipForward,
+  Volume2,
+  Heart,
+  Search,
+  X,
+} from "lucide-react";
 
 interface Song {
   _id: string;
@@ -20,9 +29,9 @@ function MusicPlayer({ token }: MusicPlayerProps) {
   const [currentSongIndex, setCurrentSongIndex] = useState<number | null>(null);
   const [isPlaying, setIsPlaying] = useState(false);
   const [volume, setVolume] = useState(0.5);
-  const [searchQuery, setSearchQuery] = useState('');
+  const [searchQuery, setSearchQuery] = useState("");
   const audioRef = useRef<HTMLAudioElement>(null);
-  const [error, setError] = useState('');
+  const [error, setError] = useState("");
   const [isSearching, setIsSearching] = useState(false);
 
   useEffect(() => {
@@ -37,17 +46,19 @@ function MusicPlayer({ token }: MusicPlayerProps) {
     try {
       setIsSearching(true);
       const url = searchQuery
-        ? `http://localhost:3000/api/songs?search=${encodeURIComponent(searchQuery)}`
-        : 'http://localhost:3000/api/songs';
+        ? `https://sd-6ykp.onrender.com/api/songs?search=${encodeURIComponent(
+            searchQuery
+          )}`
+        : "https://sd-6ykp.onrender.com/api/songs";
 
       const response = await fetch(url, {
         headers: {
-          'Authorization': `Bearer ${token}`,
+          Authorization: `Bearer ${token}`,
         },
       });
 
       if (!response.ok) {
-        throw new Error('Failed to fetch songs');
+        throw new Error("Failed to fetch songs");
       }
 
       const data = await response.json();
@@ -72,7 +83,7 @@ function MusicPlayer({ token }: MusicPlayerProps) {
 
   const playPrevious = () => {
     if (currentSongIndex !== null) {
-      setCurrentSongIndex(prevIndex => 
+      setCurrentSongIndex((prevIndex) =>
         prevIndex === 0 ? songs.length - 1 : prevIndex - 1
       );
     }
@@ -80,7 +91,7 @@ function MusicPlayer({ token }: MusicPlayerProps) {
 
   const playNext = () => {
     if (currentSongIndex !== null) {
-      setCurrentSongIndex(prevIndex => 
+      setCurrentSongIndex((prevIndex) =>
         prevIndex === songs.length - 1 ? 0 : prevIndex + 1
       );
     }
@@ -96,23 +107,24 @@ function MusicPlayer({ token }: MusicPlayerProps) {
 
   const handleLike = async (songId: string) => {
     try {
-      const response = await fetch(`http://localhost:3000/api/songs/${songId}/like`, {
-        method: 'POST',
-        headers: {
-          'Authorization': `Bearer ${token}`,
-        },
-      });
+      const response = await fetch(
+        `https://sd-6ykp.onrender.com/api/songs/${songId}/like`,
+        {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
 
       if (!response.ok) {
-        throw new Error('Failed to update like status');
+        throw new Error("Failed to update like status");
       }
 
       const { likes, isLiked } = await response.json();
-      setSongs(prevSongs =>
-        prevSongs.map(song =>
-          song._id === songId
-            ? { ...song, likes, isLiked }
-            : song
+      setSongs((prevSongs) =>
+        prevSongs.map((song) =>
+          song._id === songId ? { ...song, likes, isLiked } : song
         )
       );
     } catch (err) {
@@ -152,7 +164,9 @@ function MusicPlayer({ token }: MusicPlayerProps) {
         </div>
       ) : songs.length === 0 ? (
         <div className="text-center py-8">
-          <p className="text-rose-600">No songs found. Try a different search or add some music.</p>
+          <p className="text-rose-600">
+            No songs found. Try a different search or add some music.
+          </p>
         </div>
       ) : (
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mb-8">
@@ -183,8 +197,12 @@ function MusicPlayer({ token }: MusicPlayerProps) {
                 </div>
               </div>
               <div className="p-4">
-                <h3 className="font-semibold text-lg mb-1 truncate text-rose-900">{song.title}</h3>
-                <p className="text-rose-600 text-sm mb-2 truncate">{song.artist}</p>
+                <h3 className="font-semibold text-lg mb-1 truncate text-rose-900">
+                  {song.title}
+                </h3>
+                <p className="text-rose-600 text-sm mb-2 truncate">
+                  {song.artist}
+                </p>
                 <div className="flex items-center justify-between">
                   <button
                     onClick={() => handleLike(song._id)}
@@ -192,7 +210,9 @@ function MusicPlayer({ token }: MusicPlayerProps) {
                   >
                     <Heart
                       className={`w-5 h-5 ${
-                        song.isLiked ? 'fill-rose-500 text-rose-500' : 'text-rose-300'
+                        song.isLiked
+                          ? "fill-rose-500 text-rose-500"
+                          : "text-rose-300"
                       }`}
                     />
                     <span className="text-sm text-rose-600">{song.likes}</span>
@@ -218,8 +238,12 @@ function MusicPlayer({ token }: MusicPlayerProps) {
                 className="w-16 h-16 rounded-lg object-cover shadow-md"
               />
               <div>
-                <h3 className="font-semibold text-rose-900">{songs[currentSongIndex].title}</h3>
-                <p className="text-rose-600 text-sm">{songs[currentSongIndex].artist}</p>
+                <h3 className="font-semibold text-rose-900">
+                  {songs[currentSongIndex].title}
+                </h3>
+                <p className="text-rose-600 text-sm">
+                  {songs[currentSongIndex].artist}
+                </p>
               </div>
             </div>
 

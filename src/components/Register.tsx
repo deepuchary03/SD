@@ -1,30 +1,33 @@
-import React, { useState } from 'react';
-import { User, Lock } from 'lucide-react';
+import React, { useState } from "react";
+import { User, Lock } from "lucide-react";
 
 interface RegisterProps {
   onRegister: (token: string, isAdmin: boolean) => void;
 }
 
 function Register({ onRegister }: RegisterProps) {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      const response = await fetch('http://localhost:3000/api/register', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ username, password }),
-      });
+      const response = await fetch(
+        "https://sd-6ykp.onrender.com/api/register",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ username, password }),
+        }
+      );
 
       const data = await response.json();
 
       if (!response.ok) {
-        throw new Error(data.error || 'Registration failed');
+        throw new Error(data.error || "Registration failed");
       }
 
       onRegister(data.token, data.user.isAdmin);
@@ -35,7 +38,9 @@ function Register({ onRegister }: RegisterProps) {
 
   return (
     <div className="bg-gradient-to-r from-rose-50 to-pink-50 p-8 rounded-2xl shadow-xl">
-      <h2 className="text-3xl font-bold mb-6 text-center bg-gradient-to-r from-rose-600 to-pink-600 text-transparent bg-clip-text">Register</h2>
+      <h2 className="text-3xl font-bold mb-6 text-center bg-gradient-to-r from-rose-600 to-pink-600 text-transparent bg-clip-text">
+        Register
+      </h2>
       {error && (
         <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded-xl mb-4">
           {error}
@@ -43,7 +48,10 @@ function Register({ onRegister }: RegisterProps) {
       )}
       <form onSubmit={handleSubmit} className="space-y-6">
         <div>
-          <label className="block text-rose-700 text-sm font-semibold mb-2" htmlFor="username">
+          <label
+            className="block text-rose-700 text-sm font-semibold mb-2"
+            htmlFor="username"
+          >
             Username
           </label>
           <div className="relative">
@@ -61,7 +69,10 @@ function Register({ onRegister }: RegisterProps) {
           </div>
         </div>
         <div>
-          <label className="block text-rose-700 text-sm font-semibold mb-2" htmlFor="password">
+          <label
+            className="block text-rose-700 text-sm font-semibold mb-2"
+            htmlFor="password"
+          >
             Password
           </label>
           <div className="relative">
