@@ -31,7 +31,7 @@ function AdminPanel({ token }: AdminPanelProps) {
         formData.append("image", imageFile);
       }
 
-      const response = await fetch("https://sd-6ykp.onrender.com/api/songs", {
+      const response = await fetch("http://localhost:3000/api/songs", {
         method: "POST",
         headers: {
           Authorization: `Bearer ${token}`,

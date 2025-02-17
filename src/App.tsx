@@ -20,7 +20,7 @@ function App() {
   useEffect(() => {
     const checkDbConnection = async () => {
       try {
-        const response = await fetch("https://sd-6ykp.onrender.com/api/health");
+        const response = await fetch("http://localhost:3000/api/health");
         const data = await response.json();
         setDbStatus({
           connected: true,
