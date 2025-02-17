@@ -243,9 +243,13 @@ app.post("/api/songs", auth, adminAuth, uploadFields, async (req, res) => {
     const song = new Song({
       title,
       artist,
-      audioUrl: `https://sd-6ykp.onrender.com/uploads/${req.files.audio[0].filename}`,
+      audioUrl: `http://localhost:${process.env.PORT || 3000}/uploads/${
+        req.files.audio[0].filename
+      }`,
       imageUrl: req.files.image
-        ? `https://sd-6ykp.onrender.com/uploads/${req.files.image[0].filename}`
+        ? `http://localhost:${process.env.PORT || 3000}/${
+            req.files.image[0].filename
+          }`
         : "https://images.unsplash.com/photo-1470225620780-dba8ba36b745?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8bXVzaWN8ZW58MHx8MHx8fDA%3D",
       uploadedBy: req.user._id,
     });
