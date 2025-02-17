@@ -108,7 +108,7 @@ function App() {
           <div className="flex items-center space-x-2">
             <Music className="w-6 h-6 text-rose-500" />
             <span className="text-xl font-bold bg-gradient-to-r from-rose-600 to-pink-600 text-transparent bg-clip-text">
-              Music Player
+              SD Music
             </span>
           </div>
           <div className="flex items-center space-x-4">
